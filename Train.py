@@ -34,18 +34,6 @@ new_df['tags'] = new_df['tags'].apply(stem)
 from sklearn.metrics.pairwise import cosine_similarity
 similarity = cosine_similarity(vectors)
 
-# Modify the recommend function to include course URLs
-def recommend(course):
-    course_index = new_df[new_df['course_name'] == course].index[0]
-    distances = similarity[course_index]
-    course_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:7]
-    
-    for i in course_list:
-        recommended_course = new_df.iloc[i[0]]
-        print(f"{recommended_course.course_name} - {recommended_course['Course URL']}")
-
-# Example usage
-recommend('Business Strategy Business Model Canvas Analysis with Miro')
 
 # Save the similarity matrix and course data for later use
 import pickle
